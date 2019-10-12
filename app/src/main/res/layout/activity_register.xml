@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/background">
+
+    <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#8000">
+
+        <include layout="@layout/welcome_register"/>
+
+        <include layout="@layout/first_page_register"/>
+
+        <include layout="@layout/second_page_register"/>
+
+        <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_alignParentBottom="true"
+                android:layout_marginBottom="80dp">
+
+            <ImageView
+                    android:id="@+id/indicator1"
+                    android:layout_width="10dp"
+                    android:layout_height="10dp"
+                    android:background="@drawable/circle"/>
+
+            <LinearLayout android:layout_width="2dp" android:layout_height="2dp"/>
+
+            <ImageView
+                    android:id="@+id/indicator2"
+                    android:layout_width="10dp"
+                    android:layout_height="10dp"
+                    android:background="@drawable/circle_off"/>
+
+            <LinearLayout android:layout_width="2dp" android:layout_height="2dp"/>
+
+            <ImageView
+                    android:id="@+id/indicator3"
+                    android:layout_width="10dp"
+                    android:layout_height="10dp"
+                    android:background="@drawable/circle_off"/>
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+</RelativeLayout>
