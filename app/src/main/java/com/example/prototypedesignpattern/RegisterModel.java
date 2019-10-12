@@ -1,7 +1,7 @@
 package com.example.prototypedesignpattern;
 
 public class RegisterModel {
-    private int id;
+    private String id;
     private String name;
     private String family;
     private String phone;
@@ -10,7 +10,7 @@ public class RegisterModel {
     private String weight;
     private String height;
 
-    public RegisterModel(int id, String name, String family, String phone, String address, String age, String weight, String height) {
+    public RegisterModel(String id, String name, String family, String phone, String address, String age, String weight, String height) {
         this.id = id;
         this.name = name;
         this.family = family;

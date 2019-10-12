@@ -14,7 +14,7 @@ public class Register implements Cloneable {
         this.rgisterList=list;
     }
 
-    public void addMember(int id,String name,String family,String phone,String address,String age,String weight,String height){
+    public void addMember(String id,String name,String family,String phone,String address,String age,String weight,String height){
         //read all employees from database and put into the list
         rgisterList.add(new RegisterModel(id,name,family,phone,address,age,weight,height));
     }
