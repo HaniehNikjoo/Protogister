@@ -4,9 +4,9 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.widget.Toast;
 import butterknife.BindViews;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 public class RegisterActivity extends AppCompatActivity {
 
@@ -30,37 +30,24 @@ public class RegisterActivity extends AppCompatActivity {
         gestureDetector(arrayRoot);
 
 
-
     }
 
     private void gestureDetector(final View...views){
         for (View view : views) {
             view.setOnTouchListener(new OnSwipeTouchListener(RegisterActivity.this) {
                 public void onSwipeTop() {
-                    Toast.makeText(RegisterActivity.this, "top", Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(RegisterActivity.this, "top", Toast.LENGTH_SHORT).show();
                 }
                 public void onSwipeRight() {
 //                    Toast.makeText(RegisterActivity.this, "right", Toast.LENGTH_SHORT).show();
-                   if(counter>0) {
-                       final int finalC = counter;
-                       views[finalC].setVisibility(View.GONE);
-                       final int finalP = --counter;
-                       views[finalP].setVisibility(View.VISIBLE);
-                       showStep(arrayIndicator[counter]);
-                   }
+                    goBack(views);
                 }
                 public void onSwipeLeft() {
 //                    Toast.makeText(RegisterActivity.this, "left", Toast.LENGTH_SHORT).show();
-                    if(counter<2) {
-                        final int finalC = counter;
-                        views[finalC].setVisibility(View.GONE);
-                        final int finalN = ++counter;
-                        views[finalN].setVisibility(View.VISIBLE);
-                        showStep(arrayIndicator[counter]);
-                    }
+                    goNext(views);
                 }
                 public void onSwipeBottom() {
-                    Toast.makeText(RegisterActivity.this, "bottom", Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(RegisterActivity.this, "bottom", Toast.LENGTH_SHORT).show();
                 }
 
             });
@@ -77,4 +64,34 @@ public class RegisterActivity extends AppCompatActivity {
         }
     }
 
+    private void goNext(View...views){
+        if(counter<2) {
+            final int finalC = counter;
+            views[finalC].setVisibility(View.GONE);
+            final int finalN = ++counter;
+            views[finalN].setVisibility(View.VISIBLE);
+            showStep(arrayIndicator[counter]);
+        }
+    }
+
+    private void goBack(View...views){
+        if(counter>0) {
+            final int finalC = counter;
+            views[finalC].setVisibility(View.GONE);
+            final int finalP = --counter;
+            views[finalP].setVisibility(View.VISIBLE);
+            showStep(arrayIndicator[counter]);
+        }
+    }
+
+    @OnClick({R.id.first_register_button_next, R.id.second_register_button_next})
+    public void onClickNext() {
+        goNext(arrayRoot);
+    }
+
+    @Override
+    public void onBackPressed() {
+//        super.onBackPressed();
+        goBack(arrayRoot);
+    }
 }
