@@ -1,10 +1,12 @@
 package com.example.prototypedesignpattern;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.view.animation.AnimationUtils;
 import android.widget.EditText;
 
 import com.example.prototypedesignpattern.db.Member;
@@ -33,6 +35,7 @@ public class RegisterActivity extends AppCompatActivity {
     @BindView(R.id.second_register_edittext_age) EditText edittext_age;
     @BindView(R.id.second_register_edittext_weight) EditText edittext_weight;
     @BindView(R.id.second_register_edittext_height) EditText edittext_height;
+    private static final int COUNTER_SLIDER=2;
 
     String name,family,phone,address,age,weight,height;
     Member member=new Member();
@@ -57,21 +60,12 @@ public class RegisterActivity extends AppCompatActivity {
     private void gestureDetector(final View...views){
         for (View view : views) {
             view.setOnTouchListener(new OnSwipeTouchListener(RegisterActivity.this) {
-                public void onSwipeTop() {
-//                    Toast.makeText(RegisterActivity.this, "top", Toast.LENGTH_SHORT).show();
-                }
                 public void onSwipeRight() {
-//                    Toast.makeText(RegisterActivity.this, "right", Toast.LENGTH_SHORT).show();
                     goBack(views);
                 }
                 public void onSwipeLeft() {
-//                    Toast.makeText(RegisterActivity.this, "left", Toast.LENGTH_SHORT).show();
                     goNext(views);
                 }
-                public void onSwipeBottom() {
-//                    Toast.makeText(RegisterActivity.this, "bottom", Toast.LENGTH_SHORT).show();
-                }
-
             });
         }
     }
@@ -86,13 +80,16 @@ public class RegisterActivity extends AppCompatActivity {
         }
     }
 
+    @SuppressLint("ResourceType")
     private void goNext(View...views){
-        if(counter<2) {
+        if(counter<COUNTER_SLIDER) {
             final int finalC = counter;
             views[finalC].setVisibility(View.GONE);
             final int finalN = ++counter;
             views[finalN].setVisibility(View.VISIBLE);
             showStep(arrayIndicator[counter]);
+            views[finalN].startAnimation(AnimationUtils.loadAnimation(this,R.transition.animation_leave));
+            views[finalC].startAnimation(AnimationUtils.loadAnimation(this,R.transition.animation_enter));
         }else if (counter==arrayIndicator.length-1){
             register.setId(getKey());
             register.setName(edittext_name.getText().toString());
@@ -106,11 +103,13 @@ public class RegisterActivity extends AppCompatActivity {
 //            register.addMember(getKey(),name,family,phone,address,age,weight,height);
             register.addMember();
             Intent intent =new Intent(RegisterActivity.this,ListActivity.class);
+            this.overridePendingTransition(R.transition.fadeout,R.transition.fadein);
             startActivity(intent);
 //            register.getAllMembers();
         }
     }
 
+    @SuppressLint("ResourceType")
     private void goBack(View...views){
         if(counter>0) {
             final int finalC = counter;
@@ -118,6 +117,8 @@ public class RegisterActivity extends AppCompatActivity {
             final int finalP = --counter;
             views[finalP].setVisibility(View.VISIBLE);
             showStep(arrayIndicator[counter]);
+            views[finalP].startAnimation(AnimationUtils.loadAnimation(this,R.transition.animation_leave));
+            views[finalC].startAnimation(AnimationUtils.loadAnimation(this,R.transition.animation_enter));
         }
     }
 

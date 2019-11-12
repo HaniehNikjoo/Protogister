@@ -5,6 +5,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
+import com.example.interfaces.OnDeleteListener;
 import com.example.prototypedesignpattern.db.Member;
 
 import java.util.List;
@@ -16,9 +18,11 @@ import java.util.List;
 public class ReportAdapter extends RecyclerView.Adapter<ReportAdapter.MyViewHolder> {
 
     private List<Member> list;
+    OnDeleteListener listener;
 
-    public ReportAdapter(List<Member> list) {
+    public ReportAdapter(OnDeleteListener listener, List<Member> list) {
         this.list = list;
+        this.listener = listener;
     }
 
     @Override
@@ -31,11 +35,11 @@ public class ReportAdapter extends RecyclerView.Adapter<ReportAdapter.MyViewHold
 
     @Override
     public void onBindViewHolder(ReportAdapter.MyViewHolder holder, int position) {
-
         holder.name.setText(list.get(position).name);
         holder.family.setText(list.get(position).family);
         holder.tell.setText(list.get(position).phone);
         holder.address.setText(list.get(position).address);
+        holder.age.setText(list.get(position).age);
     }
 
     @Override
@@ -44,14 +48,19 @@ public class ReportAdapter extends RecyclerView.Adapter<ReportAdapter.MyViewHold
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
-        public TextView name,family,tell,address;
+        public TextView name,family,tell,address,age;
 
         public MyViewHolder(View view) {
             super(view);
-            name = (TextView) view.findViewById(R.id.name);
-            family = (TextView) view.findViewById(R.id.family);
-            tell = (TextView) view.findViewById(R.id.tell);
-            address = (TextView) view.findViewById(R.id.address);
+            name = view.findViewById(R.id.name);
+            family = view.findViewById(R.id.family);
+            tell = view.findViewById(R.id.tell);
+            address = view.findViewById(R.id.address);
+            age = view.findViewById(R.id.age);
+            itemView.setOnLongClickListener(view1 -> {
+                listener.onDelte(list.get(getAdapterPosition()).id);
+                return false;
+            });
         }
     }
 }
