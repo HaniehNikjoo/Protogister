@@ -1,18 +1,12 @@
 package com.example.prototypedesignpattern;
 
-import android.arch.persistence.room.Room;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
-import butterknife.BindView;
-import butterknife.BindViews;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
-import com.example.prototypedesignpattern.db.AppDatabase;
+
 import com.example.prototypedesignpattern.db.Member;
 
 import java.security.MessageDigest;
@@ -20,6 +14,11 @@ import java.security.NoSuchAlgorithmException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.TimeZone;
+
+import butterknife.BindView;
+import butterknife.BindViews;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 public class RegisterActivity extends AppCompatActivity {
 
